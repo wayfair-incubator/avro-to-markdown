@@ -49,7 +49,6 @@ This message has my favorite number.
 * favorite_number - Favorite number (number)
 ```
 
-
 ## Roadmap
 
 See the [open issues](https://github.com/wayfair-incubator/avro-to-markdown/issues) for a list of proposed features (and known issues).
