@@ -15,14 +15,9 @@ To get a local copy up and running follow these simple steps.
 
 ### Installation
 
-2. Install package
-
-   ```sh
-   pip install avro-to-markdown
-   ```
-
-## Usage
-
+```sh
+pip install avro-to-markdown
+```
 
 ## Usage
 
