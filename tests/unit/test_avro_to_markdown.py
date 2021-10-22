@@ -1,9 +1,5 @@
-from avro_to_markdown.converter import (
-    described_field_types,
-    is_record,
-    schema_to_markdown,
-    subfields,
-)
+from avro_to_markdown import schema_to_markdown
+from avro_to_markdown.converter import described_field_types, is_record, subfields
 
 
 def test_schema_to_markdown():
