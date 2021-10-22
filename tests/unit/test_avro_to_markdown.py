@@ -1,8 +1,13 @@
 from avro_to_markdown import schema_to_markdown
-from avro_to_markdown.converter import _described_field_types, _is_record, _subfields
+from avro_to_markdown.converter import (
+    _described_field_types,
+    _is_record,
+    _subfields,
+)
 
 
 def test_schema_to_markdown():
+    """Check that markdown for 'favorite_number' entry is correctly generated."""
     schema = {
         "type": "record",
         "name": "User",
@@ -19,12 +24,14 @@ def test_schema_to_markdown():
 
 
 def test_descriptive_scalar_field_types():
+    """Check that correct description is generated for scalar field types."""
     assert _described_field_types(["null", "long"]) == "missing or number"
     assert _described_field_types(["null", "boolean"]) == "missing or yes/no"
     assert _described_field_types(["null", "string"]) == "missing or text"
 
 
 def test_logical_types():
+    """Check that correct description is generated for logical field types."""
     assert (
         _described_field_types(
             ["null", {"type": "long", "logicalType": "timestamp-millis"}]
@@ -34,6 +41,7 @@ def test_logical_types():
 
 
 def test_describe_array_of_types():
+    """Check that correct description is generated for an array of types."""
     assert (
         _described_field_types(
             [
@@ -49,6 +57,9 @@ def test_describe_array_of_types():
 
 
 def test_describe_enum():
+    """
+    Check that correct description is generated for an array of enum field types.
+    """
     assert (
         _described_field_types(
             [
@@ -76,6 +87,7 @@ def test_describe_enum():
 
 
 def test_describe_record():
+    """Check that correct description is generated for an individual record."""
     assert (
         _described_field_types(
             ["null", {"type": "record", "name": "favorite color", "fields": []}]
@@ -114,6 +126,7 @@ def test_record_is_record():
 
 
 def test_subfields():
+    """Check that subfields are correctly parsed from a schema."""
     schema_chunk = [
         "null",
         {
