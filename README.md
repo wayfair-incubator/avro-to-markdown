@@ -1,6 +1,6 @@
 # Avro to Markdown
 
-[![CI pipeline status](https://github.com/wayfair-incubator/avro-to-markdown/workflows/CI/badge.svg?branch=main)][ci]
+[![CI pipeline status](https://github.com/wayfair-incubator/avro-to-markdown/workflows/CI/badge.svg?branch=main)](ci)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 ## About The Project
