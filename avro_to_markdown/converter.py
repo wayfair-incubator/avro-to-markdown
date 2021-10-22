@@ -1,3 +1,6 @@
+from typing import Any, Union
+
+
 class AvroToMarkdownFailure(Exception):
     pass
 
@@ -14,7 +17,7 @@ FIELD_TYPE_DESCRIPTIONS = {
 }
 
 
-def _is_record(type_field):
+def _is_record(type_field: Any) -> bool:
     """
     Is the avro field a record or a non record?
     Non-records return true. Fields that are scalar, null *or* a record
@@ -33,7 +36,7 @@ def _is_record(type_field):
             return False
 
 
-def _subfields(type_field):
+def _subfields(type_field: Any) -> Union[dict, Any]:
     """
     Get a list of sub-fields from an avro record field.
     """
@@ -43,9 +46,10 @@ def _subfields(type_field):
         for avro_type in type_field:
             if isinstance(avro_type, dict):
                 return avro_type
+        raise ValueError  # What should happen here?
 
 
-def _described_field_type(singular_type_field):
+def _described_field_type(singular_type_field: Any) -> str:
     """
     Human readable equivalent of a singular avro type - e.g. long -> number.
     """
@@ -73,7 +77,7 @@ def _described_field_type(singular_type_field):
             )
 
 
-def _described_field_types(type_field):
+def _described_field_types(type_field: Any) -> str:
     """
     Human readable equivalent of an avro type or list of types - long, type, null, etc.
     Displays either a 'or' separated list or the single field type.
@@ -86,7 +90,7 @@ def _described_field_types(type_field):
         return _described_field_type(type_field)
 
 
-def schema_to_markdown(heading: str, schema_json: dict):
+def schema_to_markdown(heading: str, schema_json: dict) -> str:
     """
     Output a human readable markdown version of a parsed JSON avro schema.
     """
