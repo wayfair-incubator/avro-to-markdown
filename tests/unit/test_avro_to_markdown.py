@@ -1,5 +1,5 @@
 from avro_to_markdown import schema_to_markdown
-from avro_to_markdown.converter import described_field_types, is_record, subfields
+from avro_to_markdown.converter import _described_field_types, _is_record, _subfields
 
 
 def test_schema_to_markdown():
@@ -19,14 +19,14 @@ def test_schema_to_markdown():
 
 
 def test_descriptive_scalar_field_types():
-    assert described_field_types(["null", "long"]) == "missing or number"
-    assert described_field_types(["null", "boolean"]) == "missing or yes/no"
-    assert described_field_types(["null", "string"]) == "missing or text"
+    assert _described_field_types(["null", "long"]) == "missing or number"
+    assert _described_field_types(["null", "boolean"]) == "missing or yes/no"
+    assert _described_field_types(["null", "string"]) == "missing or text"
 
 
 def test_logical_types():
     assert (
-        described_field_types(
+        _described_field_types(
             ["null", {"type": "long", "logicalType": "timestamp-millis"}]
         )
         == "missing or timestamp-millis"
@@ -35,8 +35,14 @@ def test_logical_types():
 
 def test_describe_array_of_types():
     assert (
-        described_field_types(
-            ["null", {"type": "array", "items": {"type": "int", "logicalType": "date"}}]
+        _described_field_types(
+            [
+                "null",
+                {
+                    "type": "array",
+                    "items": {"type": "int", "logicalType": "date"},
+                },
+            ]
         )
         == "missing or date list"
     )
@@ -44,7 +50,7 @@ def test_describe_array_of_types():
 
 def test_describe_enum():
     assert (
-        described_field_types(
+        _described_field_types(
             [
                 "null",
                 {
@@ -71,7 +77,7 @@ def test_describe_enum():
 
 def test_describe_record():
     assert (
-        described_field_types(
+        _described_field_types(
             ["null", {"type": "record", "name": "favorite color", "fields": []}]
         )
         == "missing or favorite color"
@@ -82,14 +88,14 @@ def test_non_record():
     """
     Record types contain a dict with type field record.
     """
-    assert not is_record(["null", "boolean"])
+    assert not _is_record(["null", "boolean"])
 
 
 def test_record_is_record():
     """
     Record types contain a dict with type field record.
     """
-    assert is_record(
+    assert _is_record(
         [
             "null",  # Is this null because we don't care about the schema itself?
             {
@@ -122,7 +128,7 @@ def test_subfields():
             ],
         },
     ]
-    assert subfields(schema_chunk) == {
+    assert _subfields(schema_chunk) == {
         "type": "record",
         "name": "User",
         "fields": [
