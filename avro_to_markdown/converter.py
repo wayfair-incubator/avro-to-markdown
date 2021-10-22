@@ -46,7 +46,7 @@ def _subfields(type_field: Any) -> Union[dict, Any]:
         for avro_type in type_field:
             if isinstance(avro_type, dict):
                 return avro_type
-        raise ValueError  # What should happen here?
+        raise AvroToMarkdownFailure("Could not find a valid subfield!")
 
 
 def _described_field_type(singular_type_field: Any) -> str:
