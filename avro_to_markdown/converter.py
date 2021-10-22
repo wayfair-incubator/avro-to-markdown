@@ -58,10 +58,7 @@ def _described_field_type(singular_type_field: Any) -> str:
             return singular_type_field["logicalType"]
         else:
             if singular_type_field.get("type") == "array":
-                return (
-                    _described_field_type(singular_type_field["items"])
-                    + " list"
-                )
+                return _described_field_type(singular_type_field["items"]) + " list"
             elif singular_type_field.get("type") in ("enum", "record"):
                 return singular_type_field["name"]
             else:
@@ -110,6 +107,8 @@ def schema_to_markdown(heading: str, schema_json: dict) -> str:
             try:
                 markdown += f"* {field['name']} - {field['doc']} ({_described_field_types(field['type'])})\n"
             except KeyError:
-                markdown += f"* {field['name']} ({_described_field_types(field['type'])})\n"
+                markdown += (
+                    f"* {field['name']} ({_described_field_types(field['type'])})\n"
+                )
 
     return markdown
