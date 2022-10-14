@@ -26,15 +26,6 @@ services:
 
   # Test & Lint suite
   
-  test-36:
-    <<: *dev
-    build:
-      <<: *dev_build
-      args:
-        IMAGE: python:3.6-buster
-    image: avro-to-markdown-test-36
-    command: docker/run_tests.sh
-  
   test-37:
     <<: *dev
     build:
